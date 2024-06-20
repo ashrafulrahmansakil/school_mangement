@@ -1,0 +1,13 @@
+.dropdown:hover .dropdown-menu {
+  width: 0.5rem !important ;
+  display: inline-block;
+  margin-top: 0;
+}
+.dropdown-item {
+  --bs-dropdown-link-active-bg: none !important;
+  color: #000 !important;
+}
+.active {
+  color: #27a8c5 !important;
+}
+

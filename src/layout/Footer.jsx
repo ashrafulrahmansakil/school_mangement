@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="bg-dark text-white p-1">
       <div className="container text-center">
         <span className="text-capitalize">
-          Copyrignt &copy; {year.getFullYear()} All rights reserved
+          Copyright &copy; {year.getFullYear()} All rights reserved
         </span>
         <p>Powerd by ashraful rahman sakil</p>
       </div>

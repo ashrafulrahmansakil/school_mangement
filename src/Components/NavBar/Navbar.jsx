@@ -9,7 +9,7 @@ const NavBar = () => {
             <img
               className="img-fluid text-bg-light"
               width="100"
-              src="../../src/assets/img/navlogo.png"
+              src="#"
               alt="logo"
             />
           </Link>

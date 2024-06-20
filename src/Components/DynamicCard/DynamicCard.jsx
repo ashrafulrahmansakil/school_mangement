@@ -102,7 +102,7 @@ const DynamicTextCards = () => {
     if (formDataValidate()) {
       const imageURL = formData.image
         ? URL.createObjectURL(formData.image)
-        : "src/assets/img/logo.png"; // Placeholder image
+        : null
 
       const start = parseInt(rangeStart);
       const end = parseInt(rangeEnd);
@@ -111,7 +111,7 @@ const DynamicTextCards = () => {
       for (let i = start; i <= end; i++) {
         generatedCards.push({
           ...formData,
-          id: String(i).padStart(2, "0"), // 2-digit ID with leading zeros
+          id: String(i).padStart(4, "0"), // 4-digit ID with leading zeros
           image: imageURL,
         });
       }

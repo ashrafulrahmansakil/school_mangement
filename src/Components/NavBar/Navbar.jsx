@@ -6,12 +6,7 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
         <div className="container">
           <Link to="/" className="navbar-brand">
-            <img
-              className="img-fluid text-bg-light"
-              width="100"
-              src="#"
-              alt="logo"
-            />
+            B-SMIS
           </Link>
 
           <button

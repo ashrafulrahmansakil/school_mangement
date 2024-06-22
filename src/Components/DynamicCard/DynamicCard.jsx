@@ -4,7 +4,8 @@ import Layout from "../../layout/Layout";
 import InputGroup from "../InputGroup/InputGroup";
 import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
 const DynamicTextCards = () => {
   const initialFormState = {
     title: "",
@@ -36,7 +37,7 @@ const DynamicTextCards = () => {
       upload_image: "Upload Image",
       admit_card: "Seat Card",
       print_margin:
-        "For Printing, Set Custom Margin (Top-Bottom 0.20, Left-Right 0)",
+        "*** N.B. For Printing, Set Custom Margin (Top-Bottom 0.20, Left-Right 0 ) ***",
       shift_label: "Shift:",
       roll_label: "Roll",
       date: "Date",
@@ -53,7 +54,7 @@ const DynamicTextCards = () => {
       upload_image: "আপলোড ইমেজ",
       admit_card: "সিট কার্ড",
       print_margin:
-        "প্রিন্টের সময় মার্জিন কাস্টম দিতে হবে (উপরে-নিচে ০.২০, বামে-ডানে ০)",
+        "*** বি: দ্র: প্রিন্টের সময় মার্জিন কাস্টম দিতে হবে (উপরে-নিচে ০.২০, বামে-ডানে ০ ) ***",
       shift_label: "শিফট:",
       roll_label: "রোল",
       date: "তারিখ",
@@ -62,12 +63,13 @@ const DynamicTextCards = () => {
 
   const formDataValidate = () => {
     const newErrors = {};
-    if (!formData.title) newErrors.title = "Title name is required";
+    if (!formData.title) newErrors.title = "Seat card name is required";
     if (!formData.institution_name)
       newErrors.institution_name = "Institution name is required";
     if (!formData.exam_name) newErrors.exam_name = "Exam name is required";
     if (!formData.school_class) newErrors.school_class = "Class is required";
     if (!formData.shifts) newErrors.shifts = "Shift is required";
+    if (!formData.image) newErrors.image = "Image is required";
     if (!rangeStart) newErrors.range1 = "Range Start are required";
     if (!rangeEnd) newErrors.range2 = "Range End are required";
     setErrors(newErrors);
@@ -76,20 +78,18 @@ const DynamicTextCards = () => {
 
   const handlePrint = () => {
     document.querySelector(".print-button").classList.add("hide-for-print");
-    document.querySelector(".download-button").classList.add("hide-for-print");
+    // document.querySelector(".download-button").classList.add("hide-for-print");
 
     window.print();
 
     // Remove the class after printing
     document.querySelector(".print-button").classList.remove("hide-for-print");
-    document
-      .querySelector(".download-button")
-      .classList.remove("hide-for-print");
+    // document.querySelector(".download-button").classList.remove("hide-for-print");
   };
 
-  const handleDownload = () => {
+  // const handleDownload = () => {
 
-  };
+  // };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -145,12 +145,6 @@ const DynamicTextCards = () => {
       {showForm ? (
         <Layout>
           <div className="container">
-            {/* <Button
-              onClick={handlePrint}
-              className="btn btn-success download-button print-button mt-1 me-1 text-uppercase"
-              name="print"
-              type="submit"
-            /> */}
             <form
               className="m-auto row g-2 p-4 bg-dangerrow g-1 mb-2 border p-1 w-75 mt-2 m-auto rounded"
               onSubmit={handleSubmit}
@@ -361,19 +355,15 @@ const DynamicTextCards = () => {
         </Layout>
       ) : (
         <>
-          {/* <div className="d-flex container m-2 ">
+          <div className="container mx-5 mt-1">
             <Button
               onClick={handlePrint}
-              className="btn btn-light me-1 print-button text-uppercase"
-              name="print"
+              className="btn btn-danger print-button text-uppercase"
+              type="button"
+              icon={<FontAwesomeIcon icon={faPrint} />}
             />
-            <Button
-              onClick={{ handlePrint, handleDownload }}
-              className="btn btn-light download-button text-uppercase"
-              name="download"
-            />
-          </div> */}
-          <div className="container  card-container margin">
+          </div>
+          <div className="container card-container margin">
             {cards.map((card, index) => (
               <div key={index} id="card">
                 <div className=" bg-light-subtle">

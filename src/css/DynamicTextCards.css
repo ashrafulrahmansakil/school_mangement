@@ -5,8 +5,8 @@
 }
 #card {
   border: 1px solid #0000008b !important;
-  padding: 0.2rem;
-  border-radius: 10px;
+  padding: 0.3rem;
+  border-radius: 0.2rem;
   width: 340px;
 }
 #image {
@@ -19,16 +19,18 @@
 }
 
 .margin {
-  margin: 3px 0px;
+  margin:0.5rem 0rem;
 }
-
 p {
-  margin-bottom: 0.3rem !important;
+  margin-bottom: 0.1rem !important;
   font-size: 11px;
   text-transform: uppercase;
   font-weight: 900;
 }
-
-label{
+label {
   text-transform: uppercase !important;
+}
+
+.hide-for-print {
+  display: none !important;
 }

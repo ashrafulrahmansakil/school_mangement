@@ -39,7 +39,7 @@ const DynamicTextCards = () => {
         "For Printing, Set Custom Margin (Top-Bottom 0.20, Left-Right 0)",
       shift_label: "Shift:",
       roll_label: "Roll",
-      date:"Date"
+      date: "Date",
     },
     bn: {
       language: "ভাষা পরিবর্তন",
@@ -56,7 +56,7 @@ const DynamicTextCards = () => {
         "প্রিন্টের সময় মার্জিন কাস্টম দিতে হবে (উপরে-নিচে ০.২০, বামে-ডানে ০)",
       shift_label: "শিফট:",
       roll_label: "রোল",
-      date:"তারিখ"
+      date: "তারিখ",
     },
   };
 
@@ -72,6 +72,23 @@ const DynamicTextCards = () => {
     if (!rangeEnd) newErrors.range2 = "Range End are required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const handlePrint = () => {
+    document.querySelector(".print-button").classList.add("hide-for-print");
+    document.querySelector(".download-button").classList.add("hide-for-print");
+
+    window.print();
+
+    // Remove the class after printing
+    document.querySelector(".print-button").classList.remove("hide-for-print");
+    document
+      .querySelector(".download-button")
+      .classList.remove("hide-for-print");
+  };
+
+  const handleDownload = () => {
+
   };
 
   const handleInputChange = (e) => {
@@ -102,7 +119,7 @@ const DynamicTextCards = () => {
     if (formDataValidate()) {
       const imageURL = formData.image
         ? URL.createObjectURL(formData.image)
-        : null
+        : null;
 
       const start = parseInt(rangeStart);
       const end = parseInt(rangeEnd);
@@ -122,12 +139,18 @@ const DynamicTextCards = () => {
   };
 
   // let date = new Date().toJSON().slice(0, 10);
-  let date = new Date()
+  let date = new Date();
   return (
     <>
       {showForm ? (
         <Layout>
           <div className="container">
+            {/* <Button
+              onClick={handlePrint}
+              className="btn btn-success download-button print-button mt-1 me-1 text-uppercase"
+              name="print"
+              type="submit"
+            /> */}
             <form
               className="m-auto row g-2 p-4 bg-dangerrow g-1 mb-2 border p-1 w-75 mt-2 m-auto rounded"
               onSubmit={handleSubmit}
@@ -337,34 +360,52 @@ const DynamicTextCards = () => {
           </div>
         </Layout>
       ) : (
-        <div className="container  card-container margin">
-          {cards.map((card, index) => (
-            <div key={index} id="card">
-              <div className=" bg-light-subtle">
-                <div className="d-flex ">
-                  {card.image && <img id="image" src={card.image} alt="logo" />}
-                  <strong className="text-center fw-bold m-auto text-uppercase">
-                    {card.title}
-                  </strong>
+        <>
+          {/* <div className="d-flex container m-2 ">
+            <Button
+              onClick={handlePrint}
+              className="btn btn-light me-1 print-button text-uppercase"
+              name="print"
+            />
+            <Button
+              onClick={{ handlePrint, handleDownload }}
+              className="btn btn-light download-button text-uppercase"
+              name="download"
+            />
+          </div> */}
+          <div className="container  card-container margin">
+            {cards.map((card, index) => (
+              <div key={index} id="card">
+                <div className=" bg-light-subtle">
+                  <div className="d-flex ">
+                    {card.image && (
+                      <img id="image" src={card.image} alt="logo" />
+                    )}
+                    <strong className="text-center fw-bold m-auto text-uppercase">
+                      {card.title}
+                    </strong>
+                  </div>
+                  <p id="fontSize">{card.institution_name}</p>
+                  <p>
+                    {labels[language].exam_name}: {card.exam_name}
+                  </p>
+                  <p>
+                    {labels[language].roll_label}: {card.id}
+                  </p>
+                  <p>
+                    {labels[language].school_class}: {card.school_class}
+                  </p>
+                  <p>
+                    {labels[language].shifts}: {card.shifts}
+                  </p>
+                  <p>
+                    {labels[language].date}: {date.toLocaleDateString()}
+                  </p>
                 </div>
-                <p id="fontSize">{card.institution_name}</p>
-                <p>
-                  {labels[language].exam_name}: {card.exam_name}
-                </p>
-                <p>
-                  {labels[language].roll_label}: {card.id}
-                </p>
-                <p>
-                  {labels[language].school_class}: {card.school_class}
-                </p>
-                <p>
-                  {labels[language].shifts}: {card.shifts}
-                </p>
-                <p> {labels[language].date}: {date.toLocaleDateString()}</p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </>
       )}
     </>
   );

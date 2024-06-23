@@ -45,7 +45,7 @@ const DynamicTextCards = () => {
       date: "Date",
     },
     bn: {
-      submit: "জমা",
+      submit: "জমা দিন",
       reset: "পুনরায়",
       language: "ভাষা পরিবর্তন",
       title: "সিট কার্ড নাম",

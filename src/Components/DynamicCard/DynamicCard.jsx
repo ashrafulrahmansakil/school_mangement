@@ -26,6 +26,8 @@ const DynamicTextCards = () => {
 
   const labels = {
     en: {
+      submit: "Submit",
+      reset: "Reset",
       language: "Change Language",
       title: "SEAT CARD Name",
       institution_name: "Institution Name",
@@ -43,6 +45,8 @@ const DynamicTextCards = () => {
       date: "Date",
     },
     bn: {
+      submit: "জমা",
+      reset: "পুনরায়",
       language: "ভাষা পরিবর্তন",
       title: "সিট কার্ড নাম",
       institution_name: "প্রতিষ্ঠানের নাম",
@@ -342,12 +346,12 @@ const DynamicTextCards = () => {
                 <Button
                   className="btn btn-danger col-md-5 mx-1"
                   type="reset"
-                  name="Reset"
+                  name={labels[language].reset}
                 />
                 <Button
                   className=" btn btn-primary col-md-6"
                   type="submit"
-                  name="submit"
+                  name={labels[language].submit}
                 />
               </div>
             </form>
@@ -365,7 +369,7 @@ const DynamicTextCards = () => {
           </div>
           <div className="container card-container margin">
             {cards.map((card, index) => (
-              <div key={index} >
+              <div key={index}>
                 <div id="card" className=" bg-light-subtle">
                   <div className="d-flex ">
                     {card.image && (

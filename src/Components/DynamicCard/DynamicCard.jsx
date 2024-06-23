@@ -365,8 +365,8 @@ const DynamicTextCards = () => {
           </div>
           <div className="container card-container margin">
             {cards.map((card, index) => (
-              <div key={index} id="card">
-                <div className=" bg-light-subtle">
+              <div key={index} >
+                <div id="card" className=" bg-light-subtle">
                   <div className="d-flex ">
                     {card.image && (
                       <img id="image" src={card.image} alt="logo" />

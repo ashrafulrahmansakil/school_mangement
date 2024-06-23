@@ -1,23 +1,23 @@
 .card-container {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 #card {
   border: 1px solid #0000008b !important;
-  padding: 5px;
+  padding: 3px;
   border-radius: 0.2rem;
-  width: 340px;
+  width: 250px;
 }
 #image {
-  height: 40px !important;
-  width: 40px !important;
+  height: 35px !important;
+  width: 35px !important;
   overflow: hidden !important;
 }
 #fontSize {
   text-align: center;
-  font-weight: bold;
-  font-size: 10px;
+  font-weight: bolder;
+  font-size: 9px;
 }
 
 .margin {
@@ -25,7 +25,7 @@
 }
 p {
   margin-bottom: 0.1rem !important;
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   font-weight: 900;
 }
@@ -34,6 +34,9 @@ label {
 }
 
 .hide-for-print {
-  z-index: 2!important;
   display: none !important;
+}
+
+@page {
+  margin: 0.8in 0in !important;
 }

@@ -153,7 +153,7 @@ const DynamicTextCards = () => {
               className="m-auto row g-2 p-4 bg-dangerrow g-1 mb-2 border p-1 w-75 mt-2 m-auto rounded"
               onSubmit={handleSubmit}
             >
-              <div className="col-md-4">
+              <div className="col-lg-4 col-md-4 col-sm-6">
                 <Label
                   htmlFor="language"
                   className="form-label"
@@ -175,7 +175,7 @@ const DynamicTextCards = () => {
               <strong className="text-danger text-center fst-italic fw-bolder">
                 {labels[language].print_margin}
               </strong>
-              <div className="col-md-6">
+              <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="title"
                   className="form-label"
@@ -194,7 +194,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.title}</div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="institution_name"
                   className="form-label"
@@ -217,7 +217,7 @@ const DynamicTextCards = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="exam_name"
                   className="form-label"
@@ -342,7 +342,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.image}</div>
                 )}
               </div>
-              <div className="col-md-12 ">
+              <div className="col-lg-12 col-md-12 col-sm-12">
                 <Button
                   className="btn btn-danger col-md-5 mx-1"
                   type="reset"
@@ -367,10 +367,10 @@ const DynamicTextCards = () => {
               icon={<FontAwesomeIcon icon={faPrint} />}
             />
           </div>
-          <div className="container card-container margin">
+          <div className="container-fluid card-container margin">
             {cards.map((card, index) => (
               <div key={index}>
-                <div id="card" className=" bg-light-subtle">
+                <div id="card" className="mx-2 bg-light-subtle">
                   <div className="d-flex ">
                     {card.image && (
                       <img id="image" src={card.image} alt="logo" />

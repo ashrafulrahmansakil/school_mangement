@@ -81,14 +81,15 @@ const DynamicTextCards = () => {
   };
 
   const handlePrint = () => {
-    document.querySelector(".print-button").classList.add("hide-for-print");
+    const printButton = document.querySelector(".print-button");
+    printButton.classList.add("hide-for-print");
     // document.querySelector(".download-button").classList.add("hide-for-print");
-
     window.print();
-
     // Remove the class after printing
-    document.querySelector(".print-button").classList.remove("hide-for-print");
     // document.querySelector(".download-button").classList.remove("hide-for-print");
+    setTimeout(() => {
+      printButton.classList.remove("hide-for-print");
+    }, 0);
   };
 
   // const handleDownload = () => {
@@ -185,6 +186,7 @@ const DynamicTextCards = () => {
                   id="title"
                   name="title"
                   type="text"
+                  autoComplete="on"
                   placeholder={labels[language].title}
                   className={`form-control ${errors.title ? "is-invalid" : ""}`}
                   value={formData.title}
@@ -204,6 +206,7 @@ const DynamicTextCards = () => {
                   id="institution_name"
                   name="institution_name"
                   type="text"
+                  autoComplete="on"
                   placeholder={labels[language].institution_name}
                   className={`form-control ${
                     errors.institution_name ? "is-invalid" : ""
@@ -227,6 +230,7 @@ const DynamicTextCards = () => {
                   id="exam_name"
                   name="exam_name"
                   type="text"
+                  autoComplete="on"
                   placeholder={labels[language].exam_name}
                   className={`form-control ${
                     errors.exam_name ? "is-invalid" : ""
@@ -248,6 +252,7 @@ const DynamicTextCards = () => {
                   id="school_class"
                   name="school_class"
                   type="text"
+                  autoComplete="on"
                   placeholder={labels[language].school_class}
                   className={`form-control ${
                     errors.school_class ? "is-invalid" : ""
@@ -269,6 +274,7 @@ const DynamicTextCards = () => {
                   id="shifts"
                   name="shifts"
                   type="text"
+                  autoComplete="on"
                   placeholder={labels[language].shifts}
                   className={`form-control ${
                     errors.shifts ? "is-invalid" : ""
@@ -359,7 +365,7 @@ const DynamicTextCards = () => {
         </Layout>
       ) : (
         <>
-          <div className="container mx-5 mt-1">
+          <div className="container mx-5 m-1">
             <Button
               onClick={handlePrint}
               className="btn btn-danger print-button text-uppercase"
@@ -367,35 +373,31 @@ const DynamicTextCards = () => {
               icon={<FontAwesomeIcon icon={faPrint} />}
             />
           </div>
-          <div className="container-fluid card-container margin">
+          <div className="container-fluid card-container">
             {cards.map((card, index) => (
-              <div key={index}>
-                <div id="card" className="mx-2 bg-light-subtle">
-                  <div className="d-flex ">
-                    {card.image && (
-                      <img id="image" src={card.image} alt="logo" />
-                    )}
-                    <strong className="text-center fw-bold m-auto text-uppercase">
-                      {card.title}
-                    </strong>
-                  </div>
-                  <p id="fontSize">{card.institution_name}</p>
-                  <p>
-                    {labels[language].exam_name}: {card.exam_name}
-                  </p>
-                  <p>
-                    {labels[language].roll_label}: {card.id}
-                  </p>
-                  <p>
-                    {labels[language].school_class}: {card.school_class}
-                  </p>
-                  <p>
-                    {labels[language].shifts}: {card.shifts}
-                  </p>
-                  <p>
-                    {labels[language].date}: {date.toLocaleDateString()}
-                  </p>
+              <div key={index} id="card" className="mx-3 bg-light-subtle">
+                <div className="d-flex ">
+                  {card.image && <img id="image" src={card.image} alt="logo" />}
+                  <strong className="text-center fw-bold m-auto text-uppercase">
+                    {card.title}
+                  </strong>
                 </div>
+                <p id="fontSize">{card.institution_name}</p>
+                <p>
+                  {labels[language].exam_name}: {card.exam_name}
+                </p>
+                <p>
+                  {labels[language].roll_label}: {card.id}
+                </p>
+                <p>
+                  {labels[language].school_class}: {card.school_class}
+                </p>
+                <p>
+                  {labels[language].shifts}: {card.shifts}
+                </p>
+                <p>
+                  {labels[language].date}: {date.toLocaleDateString()}
+                </p>
               </div>
             ))}
           </div>

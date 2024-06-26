@@ -38,8 +38,8 @@ label {
 
 .hide-for-print {
   display: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
 }
 
 @page {

@@ -103,8 +103,10 @@ const DynamicTextCards = () => {
   const handlePrint = () => {
     const printButton = document.querySelector(".print-button");
     printButton.classList.add("hide-for-print");
-    window.print();
-    printButton.classList.remove("hide-for-print");
+    setTimeout(() => {
+      window.print();
+      printButton.classList.remove("hide-for-print");
+    }, 100);
   };
 
   const handleInputChange = (e) => {

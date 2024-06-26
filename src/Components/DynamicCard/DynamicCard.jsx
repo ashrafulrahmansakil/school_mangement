@@ -6,12 +6,14 @@ import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
+
 const DynamicTextCards = () => {
   const initialFormState = {
     title: "",
     institution_name: "",
     exam_name: "",
     school_class: "",
+    section: "",
     shifts: "",
     image: null,
   };
@@ -33,16 +35,15 @@ const DynamicTextCards = () => {
       institution_name: "Institution Name",
       exam_name: "Exam Name",
       school_class: "Class",
+      section: "Section",
       shifts: "Shift",
       range_start: "Range Start",
       range_end: "Range End",
       upload_image: "Upload Image",
       admit_card: "Seat Card",
-      print_margin:
-        "*** N.B. For Printing, Set Custom Margin (Top-Bottom 0.20, Left-Right 0 ) ***",
-      shift_label: "Shift:",
+      shift_label: "Shift",
       roll_label: "Roll",
-      date: "Date",
+      section_label: "Section",
     },
     bn: {
       submit: "জমা দিন",
@@ -52,16 +53,34 @@ const DynamicTextCards = () => {
       institution_name: "প্রতিষ্ঠানের নাম",
       exam_name: "পরীক্ষার নাম",
       school_class: "শ্রেণি",
+      section: "শাখা",
       shifts: "শিফট",
       range_start: "সিট কার্ডের সংখ্যা শুরু",
       range_end: "সিট কার্ডের সংখ্যা শেষ",
       upload_image: "আপলোড ইমেজ",
       admit_card: "সিট কার্ড",
-      print_margin:
-        "*** বি: দ্র: প্রিন্টের সময় মার্জিন কাস্টম দিতে হবে (উপরে-নিচে ০.২০, বামে-ডানে ০ ) ***",
-      shift_label: "শিফট:",
+      shift_label: "শিফট",
       roll_label: "রোল",
-      date: "তারিখ",
+      section_label: "শাখা",
+    },
+  };
+
+  const sectionArea = {
+    en: {
+      o: "-",
+      a: "A",
+      b: "B",
+      c: "C",
+      d: "D",
+      e: "E",
+    },
+    bn: {
+      o: "-",
+      a: "ক",
+      b: "খ",
+      c: "গ",
+      d: "ঘ",
+      e: "ঙ",
     },
   };
 
@@ -74,8 +93,9 @@ const DynamicTextCards = () => {
     if (!formData.school_class) newErrors.school_class = "Class is required";
     if (!formData.shifts) newErrors.shifts = "Shift is required";
     if (!formData.image) newErrors.image = "Image is required";
-    if (!rangeStart) newErrors.range1 = "Range Start are required";
-    if (!rangeEnd) newErrors.range2 = "Range End are required";
+    if (!formData.section) newErrors.section = "Section is required";
+    if (!rangeStart) newErrors.range1 = "Range Start is required";
+    if (!rangeEnd) newErrors.range2 = "Range End is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -83,18 +103,9 @@ const DynamicTextCards = () => {
   const handlePrint = () => {
     const printButton = document.querySelector(".print-button");
     printButton.classList.add("hide-for-print");
-    // document.querySelector(".download-button").classList.add("hide-for-print");
     window.print();
-    // Remove the class after printing
-    // document.querySelector(".download-button").classList.remove("hide-for-print");
-    setTimeout(() => {
-      printButton.classList.remove("hide-for-print");
-    }, 0);
+    printButton.classList.remove("hide-for-print");
   };
-
-  // const handleDownload = () => {
-
-  // };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -143,15 +154,13 @@ const DynamicTextCards = () => {
     }
   };
 
-  // let date = new Date().toJSON().slice(0, 10);
-  let date = new Date();
   return (
     <>
       {showForm ? (
         <Layout>
           <div className="container">
             <form
-              className="m-auto row g-2 p-4 bg-dangerrow g-1 mb-2 border p-1 w-75 mt-2 m-auto rounded"
+              className="m-auto row g-2 p-2 mb-2 border w-75 mt-2 rounded"
               onSubmit={handleSubmit}
             >
               <div className="col-lg-4 col-md-4 col-sm-6">
@@ -173,9 +182,6 @@ const DynamicTextCards = () => {
               <h3 className="text-center text-uppercase">
                 {labels[language].admit_card}
               </h3>
-              <strong className="text-danger text-center fst-italic fw-bolder">
-                {labels[language].print_margin}
-              </strong>
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="title"
@@ -262,6 +268,34 @@ const DynamicTextCards = () => {
                 />
                 {errors.school_class && (
                   <div className="invalid-feedback">{errors.school_class}</div>
+                )}
+              </div>
+              <div className="col-lg-6 col-md-6 col-sm-12">
+                <Label
+                  htmlFor="section"
+                  className="form-label"
+                  label={labels[language].section}
+                />
+                <select
+                  id="section"
+                  value={formData.section}
+                  className={`form-select ${
+                    errors.section ? "is-invalid" : ""
+                  }`}
+                  onChange={(e) =>
+                    handleInputChange({
+                      target: { name: "section", value: e.target.value },
+                    })
+                  }
+                >
+                  {Object.keys(sectionArea[language]).map((key) => (
+                    <option key={key} value={key}>
+                      {sectionArea[language][key]}
+                    </option>
+                  ))}
+                </select>
+                {errors.section && (
+                  <div className="invalid-feedback">{errors.section}</div>
                 )}
               </div>
               <div className="col-md-6">
@@ -373,11 +407,18 @@ const DynamicTextCards = () => {
               icon={<FontAwesomeIcon icon={faPrint} />}
             />
           </div>
-          <div className="container-fluid card-container">
+          <div className="container-fluid card-container mx-2">
             {cards.map((card, index) => (
               <div key={index} id="card" className="mx-3 bg-light-subtle">
                 <div className="d-flex ">
-                  {card.image && <img id="image" src={card.image} alt="logo" />}
+                  {card.image && (
+                    <img
+                      id="image"
+                      className="rounded-5"
+                      src={card.image}
+                      alt="logo"
+                    />
+                  )}
                   <strong className="text-center fw-bold m-auto text-uppercase">
                     {card.title}
                   </strong>
@@ -393,10 +434,11 @@ const DynamicTextCards = () => {
                   {labels[language].school_class}: {card.school_class}
                 </p>
                 <p>
-                  {labels[language].shifts}: {card.shifts}
+                  {labels[language].section_label}:{" "}
+                  {sectionArea[language][card.section]}
                 </p>
                 <p>
-                  {labels[language].date}: {date.toLocaleDateString()}
+                  {labels[language].shift_label}: {card.shifts}
                 </p>
               </div>
             ))}

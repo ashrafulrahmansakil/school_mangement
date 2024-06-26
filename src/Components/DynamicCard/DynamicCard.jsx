@@ -5,7 +5,7 @@ import InputGroup from "../InputGroup/InputGroup";
 import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faPrint } from "@fortawesome/free-solid-svg-icons";
 
 const DynamicTextCards = () => {
   const initialFormState = {
@@ -106,7 +106,7 @@ const DynamicTextCards = () => {
     setTimeout(() => {
       window.print();
       printButton.classList.remove("hide-for-print");
-    }, 100);
+    }, 1000);
   };
 
   const handleInputChange = (e) => {
@@ -408,6 +408,12 @@ const DynamicTextCards = () => {
               type="button"
               icon={<FontAwesomeIcon icon={faPrint} />}
             />
+            {/* <Button
+              onClick={() => setShowForm(true)}
+              className="btn btn-primary text-uppercase m-2"
+              label="Back to Form"
+              icon={<FontAwesomeIcon icon={faAngleLeft} />}
+            /> */}
           </div>
           <div className="container-fluid card-container mx-2">
             {cards.map((card, index) => (

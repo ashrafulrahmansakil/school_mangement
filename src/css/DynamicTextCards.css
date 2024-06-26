@@ -36,7 +36,8 @@ label {
   text-transform: uppercase !important;
 }
 
-.hide-for-print{
+.hide-for-print {
+  visibility: hidden !important;
   display: none !important;
   border: none !important;
   outline: none !important;

@@ -31,7 +31,7 @@ const DynamicTextCards = () => {
       submit: "Submit",
       reset: "Reset",
       language: "Change Language",
-      title: "SEAT CARD Name",
+      title: "SEAT CARD Title",
       institution_name: "Institution Name",
       exam_name: "Exam Name",
       school_class: "Class",
@@ -39,25 +39,25 @@ const DynamicTextCards = () => {
       shifts: "Shift",
       range_start: "Range Start",
       range_end: "Range End",
-      upload_image: "Upload Image",
+      upload_image: "Upload Logo",
       admit_card: "Seat Card",
       shift_label: "Shift",
-      roll_label: "Roll",
+      roll_label: "Roll No",
       section_label: "Section",
     },
     bn: {
       submit: "জমা দিন",
       reset: "পুনরায়",
       language: "ভাষা পরিবর্তন",
-      title: "সিট কার্ড নাম",
+      title: "সিট কার্ডের শিরোনাম",
       institution_name: "প্রতিষ্ঠানের নাম",
       exam_name: "পরীক্ষার নাম",
       school_class: "শ্রেণি",
       section: "শাখা",
       shifts: "শিফট",
-      range_start: "সিট কার্ডের সংখ্যা শুরু",
-      range_end: "সিট কার্ডের সংখ্যা শেষ",
-      upload_image: "আপলোড ইমেজ",
+      range_start: "সিট কার্ডের শুরু সংখ্যা ",
+      range_end: "সিট কার্ডের শেষ সংখ্যা",
+      upload_image: "আপলোড লগো",
       admit_card: "সিট কার্ড",
       shift_label: "শিফট",
       roll_label: "রোল",
@@ -320,7 +320,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.shifts}</div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <Label
                   htmlFor="range_start"
                   className="form-label"
@@ -342,7 +342,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.range1}</div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <Label
                   htmlFor="range_end"
                   className="form-label"
@@ -364,7 +364,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.range2}</div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <Label
                   htmlFor="imageFile"
                   className="form-label"

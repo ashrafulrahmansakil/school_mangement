@@ -1,13 +1,19 @@
-import React, { useState } from "react";
-import "../../css/DynamicTextCards.css";
+import React, { useState, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
 import Layout from "../../layout/Layout";
 import InputGroup from "../InputGroup/InputGroup";
 import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
+import PrintableCard from "../Printable/PrintableCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faPrint } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faPrint,
+  faFilePdf,
+} from "@fortawesome/free-solid-svg-icons";
 
 const DynamicTextCards = () => {
+  // form input initial
   const initialFormState = {
     title: "",
     institution_name: "",
@@ -18,6 +24,7 @@ const DynamicTextCards = () => {
     image: null,
   };
 
+  // all states
   const [formData, setFormData] = useState(initialFormState);
   const [rangeStart, setRangeStart] = useState("");
   const [rangeEnd, setRangeEnd] = useState("");
@@ -26,6 +33,7 @@ const DynamicTextCards = () => {
   const [showForm, setShowForm] = useState(true);
   const [language, setLanguage] = useState("bn");
 
+  // form dynamic labels
   const labels = {
     en: {
       submit: "Submit",
@@ -49,7 +57,7 @@ const DynamicTextCards = () => {
       submit: "জমা দিন",
       reset: "পুনরায়",
       language: "ভাষা পরিবর্তন",
-      title: "সিট কার্ডের শিরোনাম",
+      title: "সিট কার্ড শিরোনাম",
       institution_name: "প্রতিষ্ঠানের নাম",
       exam_name: "পরীক্ষার নাম",
       school_class: "শ্রেণি",
@@ -65,6 +73,7 @@ const DynamicTextCards = () => {
     },
   };
 
+  // dynamic select section
   const sectionArea = {
     en: {
       o: "-",
@@ -84,9 +93,10 @@ const DynamicTextCards = () => {
     },
   };
 
+  // form validation
   const formDataValidate = () => {
     const newErrors = {};
-    if (!formData.title) newErrors.title = "Seat card name is required";
+    if (!formData.title) newErrors.title = "Seat card title is required";
     if (!formData.institution_name)
       newErrors.institution_name = "Institution name is required";
     if (!formData.exam_name) newErrors.exam_name = "Exam name is required";
@@ -100,15 +110,7 @@ const DynamicTextCards = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handlePrint = () => {
-    const printButton = document.querySelector(".print-button");
-    printButton.classList.add("hide-for-print");
-    setTimeout(() => {
-      window.print();
-      printButton.classList.remove("hide-for-print");
-    }, 100);
-  };
-
+  // input value change
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image") {
@@ -124,14 +126,16 @@ const DynamicTextCards = () => {
     }
   };
 
+  //any range
   const handleRangeStartChange = (e) => {
     setRangeStart(e.target.value);
   };
-
+  //any range
   const handleRangeEndChange = (e) => {
     setRangeEnd(e.target.value);
   };
 
+  // form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formDataValidate()) {
@@ -141,7 +145,7 @@ const DynamicTextCards = () => {
 
       const start = parseInt(rangeStart);
       const end = parseInt(rangeEnd);
-
+      // generated dynamic card
       const generatedCards = [];
       for (let i = start; i <= end; i++) {
         generatedCards.push({
@@ -156,6 +160,12 @@ const DynamicTextCards = () => {
     }
   };
 
+  // print button area with 'Ref'
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <>
       {showForm ? (
@@ -164,6 +174,7 @@ const DynamicTextCards = () => {
             <form
               className="m-auto row g-2 p-2 mb-2 border w-75 mt-2 rounded"
               onSubmit={handleSubmit}
+              autoComplete="on"
             >
               <div className="col-lg-4 col-md-4 col-sm-6">
                 <Label
@@ -333,6 +344,7 @@ const DynamicTextCards = () => {
                   name="range_start"
                   type="number"
                   min="0"
+                  autoComplete="on"
                   placeholder={labels[language].range_start}
                   className={`form-control ${
                     errors.range1 ? "is-invalid" : ""
@@ -355,6 +367,7 @@ const DynamicTextCards = () => {
                   name="range_end"
                   type="number"
                   min="0"
+                  autoComplete="on"
                   placeholder={labels[language].range_end}
                   className={`form-control ${
                     errors.range2 ? "is-invalid" : ""
@@ -401,55 +414,39 @@ const DynamicTextCards = () => {
         </Layout>
       ) : (
         <>
-          <div className="container mx-5 m-1">
-            <Button
-              onClick={handlePrint}
-              className="btn btn-danger print-button text-uppercase"
-              type="button"
-              icon={<FontAwesomeIcon icon={faPrint} />}
-            />
-            {/* <Button
-              onClick={() => setShowForm(true)}
-              className="btn btn-primary text-uppercase m-2"
-              label="Back to Form"
-              icon={<FontAwesomeIcon icon={faAngleLeft} />}
-            /> */}
+          <div className="container m-1">
+            <div className="btn-group btn-lg mx-5">
+              {/* Back to Form */}
+              <Button
+                onClick={() => setShowForm(true)}
+                className="btn btn-primary text-uppercase"
+                label="Back to Form"
+                type="button"
+                icon={<FontAwesomeIcon icon={faAngleLeft} />}
+              />
+              {/* Print document */}
+              <Button
+                className="btn btn-success print-button text-uppercase"
+                type="button"
+                label="print"
+                icon={<FontAwesomeIcon icon={faFilePdf} />}
+              />
+              <Button
+                onClick={handlePrint}
+                className="btn btn-danger print-button text-uppercase"
+                type="button"
+                label="print"
+                icon={<FontAwesomeIcon icon={faPrint} />}
+              />
+            </div>
           </div>
-          <div className="container-fluid card-container mx-2">
-            {cards.map((card, index) => (
-              <div key={index} id="card" className="mx-3 bg-light-subtle">
-                <div className="d-flex ">
-                  {card.image && (
-                    <img
-                      id="image"
-                      className="rounded-5"
-                      src={card.image}
-                      alt="logo"
-                    />
-                  )}
-                  <strong className="text-center fw-bold m-auto text-uppercase">
-                    {card.title}
-                  </strong>
-                </div>
-                <p id="fontSize">{card.institution_name}</p>
-                <p>
-                  {labels[language].exam_name}: {card.exam_name}
-                </p>
-                <p>
-                  {labels[language].roll_label}: {card.id}
-                </p>
-                <p>
-                  {labels[language].school_class}: {card.school_class}
-                </p>
-                <p>
-                  {labels[language].section_label}:{" "}
-                  {sectionArea[language][card.section]}
-                </p>
-                <p>
-                  {labels[language].shift_label}: {card.shifts}
-                </p>
-              </div>
-            ))}
+          <div ref={componentRef}>
+            <PrintableCard
+              cards={cards}
+              labels={labels}
+              language={language}
+              sectionArea={sectionArea}
+            />
           </div>
         </>
       )}

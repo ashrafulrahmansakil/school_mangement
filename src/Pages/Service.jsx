@@ -1,4 +1,4 @@
-import "../css/service.css";
+import "../css/Service.css";
 import Layout from "./../layout/Layout";
 import { useState } from "react";
 

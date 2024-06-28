@@ -1,20 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, ref } from "react";
 import { useReactToPrint } from "react-to-print";
 import Layout from "../../layout/Layout";
 import InputGroup from "../InputGroup/InputGroup";
 import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
-import SingleCard from "../SingleCard/SingleCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
-  faAnglesRight,
+  faAnglesLeft,
   faPrint,
   faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
-const DynamicTextCards = () => {
+import "../../css/Card.css";
+const SeatCard = () => {
   // form input initial
   const initialFormState = {
     title: "",
@@ -44,16 +43,12 @@ const DynamicTextCards = () => {
       title: "SEAT CARD Title",
       institution_name: "Institution / Organization Name",
       exam_name: "Exam Name",
-      school_class: "Class",
-      section: "Section",
-      shifts: "Shift",
       range_start: "Range Start",
       range_end: "Range End",
       upload_image: "Upload Logo",
-      admit_card: "Institution / Organization Exam Seat Card",
-      shift_label: "Shift",
-      roll_label: "Roll No",
-      section_label: "Section",
+      admit_card: "Various Exam Seat Card",
+
+      roll_label: "Roll / Regi No",
     },
     bn: {
       submit: "জমা দিন",
@@ -62,41 +57,13 @@ const DynamicTextCards = () => {
       title: "সিট কার্ড শিরোনাম",
       institution_name: "প্রতিষ্ঠান / সংস্থার নাম",
       exam_name: "পরীক্ষার নাম",
-      school_class: "শ্রেণি",
-      section: "শাখা",
-      shifts: "শিফট",
       range_start: "সিট কার্ডের শুরু সংখ্যা ",
       range_end: "সিট কার্ডের শেষ সংখ্যা",
       upload_image: "আপলোড লগো",
-      admit_card: "প্রতিষ্ঠান / সংস্থার পরীক্ষার সিট কার্ড",
-      shift_label: "শিফট",
-      roll_label: "রোল",
-      section_label: "শাখা",
+      admit_card: "অন্যান্য পরীক্ষার সিট কার্ড",
+      roll_label: "রোল / রেজিস্ট্রেশন নং",
     },
   };
-
-  // dynamic select section
-  const sectionArea = {
-    en: {
-      x: "Select",
-      o: "-",
-      a: "A",
-      b: "B",
-      c: "C",
-      d: "D",
-      e: "E",
-    },
-    bn: {
-      x: "নির্বাচন করুন",
-      o: "-",
-      a: "ক",
-      b: "খ",
-      c: "গ",
-      d: "ঘ",
-      e: "ঙ",
-    },
-  };
-
   // form validation
   const formDataValidate = () => {
     const newErrors = {};
@@ -104,10 +71,6 @@ const DynamicTextCards = () => {
     if (!formData.institution_name)
       newErrors.institution_name = "Institution name is required";
     if (!formData.exam_name) newErrors.exam_name = "Exam name is required";
-    if (!formData.school_class) newErrors.school_class = "Class is required";
-    if (!formData.shifts) newErrors.shifts = "Shift is required";
-    if (!formData.image) newErrors.image = "Image is required";
-    if (!formData.section) newErrors.section = "Section is required";
     if (!rangeStart) newErrors.range1 = "Range Start is required";
     if (!rangeEnd) newErrors.range2 = "Range End is required";
     setErrors(newErrors);
@@ -200,12 +163,12 @@ const DynamicTextCards = () => {
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-4 col-sm-6 mt-3">
-                  <Link to="/content" className="nav-link">
+                  <Link to="/" className="nav-link">
                     <Button
+                      icon={<FontAwesomeIcon icon={faAnglesLeft} />}
                       className="btn btn-success btn-sm"
                       type="button"
-                      name="অন্যান্য "
-                      icon={<FontAwesomeIcon icon={faAnglesRight} />}
+                      name="প্রতিষ্ঠান / সংস্থা "
                     />
                   </Link>
                 </div>
@@ -279,79 +242,25 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.exam_name}</div>
                 )}
               </div>
-              <div className="col-md-6">
+              <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
-                  htmlFor="school_class"
+                  htmlFor="imageFile"
                   className="form-label"
-                  label={labels[language].school_class}
+                  label={labels[language].upload_image}
                 />
                 <InputGroup
-                  id="school_class"
-                  name="school_class"
-                  type="text"
-                  autoComplete="on"
-                  placeholder={labels[language].school_class}
-                  className={`form-control ${
-                    errors.school_class ? "is-invalid" : ""
-                  }`}
-                  value={formData.school_class}
+                  id="imageFile"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  className={`form-control ${errors.image ? "is-invalid" : ""}`}
                   onChange={handleInputChange}
                 />
-                {errors.school_class && (
-                  <div className="invalid-feedback">{errors.school_class}</div>
+                {errors.image && (
+                  <div className="invalid-feedback">{errors.image}</div>
                 )}
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12">
-                <Label
-                  htmlFor="section"
-                  className="form-label"
-                  label={labels[language].section}
-                />
-                <select
-                  id="section"
-                  value={formData.section}
-                  className={`form-select ${
-                    errors.section ? "is-invalid" : ""
-                  }`}
-                  onChange={(e) =>
-                    handleInputChange({
-                      target: { name: "section", value: e.target.value },
-                    })
-                  }
-                >
-                  {Object.keys(sectionArea[language]).map((key) => (
-                    <option key={key} value={key}>
-                      {sectionArea[language][key]}
-                    </option>
-                  ))}
-                </select>
-                {errors.section && (
-                  <div className="invalid-feedback">{errors.section}</div>
-                )}
-              </div>
-              <div className="col-md-6">
-                <Label
-                  htmlFor="shifts"
-                  className="form-label"
-                  label={labels[language].shifts}
-                />
-                <InputGroup
-                  id="shifts"
-                  name="shifts"
-                  type="text"
-                  autoComplete="on"
-                  placeholder={labels[language].shifts}
-                  className={`form-control ${
-                    errors.shifts ? "is-invalid" : ""
-                  }`}
-                  value={formData.shifts}
-                  onChange={handleInputChange}
-                />
-                {errors.shifts && (
-                  <div className="invalid-feedback">{errors.shifts}</div>
-                )}
-              </div>
-              <div className="col-md-4">
                 <Label
                   htmlFor="range_start"
                   className="form-label"
@@ -374,7 +283,7 @@ const DynamicTextCards = () => {
                   <div className="invalid-feedback">{errors.range1}</div>
                 )}
               </div>
-              <div className="col-md-4">
+              <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="range_end"
                   className="form-label"
@@ -395,24 +304,6 @@ const DynamicTextCards = () => {
                 />
                 {errors.range2 && (
                   <div className="invalid-feedback">{errors.range2}</div>
-                )}
-              </div>
-              <div className="col-md-4">
-                <Label
-                  htmlFor="imageFile"
-                  className="form-label"
-                  label={labels[language].upload_image}
-                />
-                <InputGroup
-                  id="imageFile"
-                  name="image"
-                  type="file"
-                  accept="image/*"
-                  className={`form-control ${errors.image ? "is-invalid" : ""}`}
-                  onChange={handleInputChange}
-                />
-                {errors.image && (
-                  <div className="invalid-feedback">{errors.image}</div>
                 )}
               </div>
               <div className="col-lg-12 col-md-12 col-sm-12">
@@ -459,12 +350,39 @@ const DynamicTextCards = () => {
             </div>
           </div>
           <div ref={componentRef}>
-            <SingleCard
-              cards={cards}
-              labels={labels}
-              language={language}
-              sectionArea={sectionArea}
-            />
+            <div ref={ref}>
+              <div className="container-fluid card-container">
+                {cards.map((card, index) => (
+                  <div key={index} className="mx-3" id="card">
+                    <div className="d-flex ">
+                      {card.image && (
+                        <img
+                          id="image"
+                          className="rounded-5"
+                          src={card.image}
+                          alt="logo"
+                        />
+                      )}
+                      <strong
+                        id="roll"
+                        className="text-center  m-auto text-uppercase"
+                      >
+                        {card.title}
+                      </strong>
+                    </div>
+                    <div className="pt-3">
+                      <p id="fontSize">{card.institution_name}</p>
+                      <p>
+                        {labels[language].exam_name} : {card.exam_name}
+                      </p>
+                      <p id="roll">
+                        {labels[language].roll_label} : {card.id}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </>
       )}
@@ -472,4 +390,4 @@ const DynamicTextCards = () => {
   );
 };
 
-export default DynamicTextCards;
+export default SeatCard;

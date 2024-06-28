@@ -11,21 +11,22 @@ body {
 
 #card {
   border: 1px solid #0000008b !important;
-  padding: 2px;
+  padding: 4px 2px;
   border-radius: 0.2rem;
-  width: 344px;
+  width: 345px;
+  height: 10.2rem;
 }
 
 #image {
-  height:40px !important;
+  height: 40px !important;
   width: 40px !important;
   overflow: hidden !important;
 }
 
 #fontSize {
   text-align: center;
-  font-weight: bolder;
   font-size: 11px;
+  font-weight: bolder;
 }
 
 p {
@@ -34,6 +35,10 @@ p {
   padding: 0px 5px;
   text-transform: uppercase;
   font-weight: 900;
+}
+
+#roll {
+  font-size: 1rem !important;
 }
 
 label {

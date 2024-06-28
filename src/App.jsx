@@ -5,6 +5,7 @@ import PrivateOutlet from "./Routes/Private/PrivateOutlet";
 // pages
 import Home from "./Pages/Home";
 import Error from "./Pages/Error";
+import Content from "./Pages/Content";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import SignUp from "./Pages/SignUp";
@@ -17,6 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/content" element={<Content />} />
           {/* <Route path="/service" element={<Service />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />

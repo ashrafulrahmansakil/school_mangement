@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
-import "../../css/DynamicTextCards.css";
-const PrintableCard = forwardRef((props, ref) => {
+import "../../css/Card.css";
+const SingleCard = forwardRef((props, ref) => {
   const { cards, labels, language, sectionArea } = props;
 
   return (
@@ -33,7 +33,8 @@ const PrintableCard = forwardRef((props, ref) => {
                 {labels[language].school_class} : {card.school_class}
               </p>
               <p>
-                {labels[language].section_label} : {sectionArea[language][card.section]}
+                {labels[language].section_label} :{" "}
+                {sectionArea[language][card.section]}
               </p>
               <p>
                 {labels[language].shift_label} : {card.shifts}
@@ -46,4 +47,4 @@ const PrintableCard = forwardRef((props, ref) => {
   );
 });
 
-export default PrintableCard;
+export default SingleCard;

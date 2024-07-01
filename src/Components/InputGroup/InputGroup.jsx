@@ -6,6 +6,8 @@ const InputGroup = ({
   className,
   placeholder,
   autoComplete,
+  onFocus,
+  onBlur,
   ...rest
 }) => {
   return (
@@ -17,7 +19,9 @@ const InputGroup = ({
         type={type}
         name={name}
         autoComplete={autoComplete}
-        placeholder={placeholder}
+        placeholder={placeholder ?? ""}
+        onFocus={onFocus}
+        onBlur={onBlur}
         {...rest}
       />
     </>

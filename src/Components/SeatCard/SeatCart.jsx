@@ -6,7 +6,6 @@ import Label from "../InputGroup/Label";
 import Button from "../Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleLeft,
   faAnglesLeft,
   faPrint,
   faFilePdf,
@@ -61,7 +60,7 @@ const SeatCard = () => {
       range_end: "সিট কার্ডের শেষ সংখ্যা",
       upload_image: "আপলোড লগো",
       admit_card: "অন্যান্য পরীক্ষার সিট কার্ড",
-      roll_label: "রোল / রেজিস্ট্রেশন নং",
+      roll_label: "রোল / রেজি. নং",
     },
   };
   // form validation
@@ -75,6 +74,15 @@ const SeatCard = () => {
     if (!rangeEnd) newErrors.range2 = "Range End is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  //any range
+  const handleRangeStartChange = (e) => {
+    setRangeStart(e.target.value);
+  };
+  //any range
+  const handleRangeEndChange = (e) => {
+    setRangeEnd(e.target.value);
   };
 
   // input value change
@@ -91,15 +99,6 @@ const SeatCard = () => {
         [name]: value,
       }));
     }
-  };
-
-  //any range
-  const handleRangeStartChange = (e) => {
-    setRangeStart(e.target.value);
-  };
-  //any range
-  const handleRangeEndChange = (e) => {
-    setRangeEnd(e.target.value);
   };
 
   // form submit
@@ -132,6 +131,13 @@ const SeatCard = () => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+
+  const handleReset = () => {
+    setFormData(initialFormState);
+    setErrors({});
+    setRangeStart("");
+    setRangeEnd("");
+  };
 
   return (
     <>
@@ -176,6 +182,8 @@ const SeatCard = () => {
               <h5 className="text-center text-uppercase fw-bolder">
                 {labels[language].admit_card}
               </h5>
+
+              {/* input field element start */}
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="title"
@@ -311,6 +319,7 @@ const SeatCard = () => {
                   className="btn btn-danger col-md-5 mx-1"
                   type="reset"
                   name={labels[language].reset}
+                  onClick={handleReset}
                 />
                 <Button
                   className=" btn btn-primary col-md-6"
@@ -327,11 +336,11 @@ const SeatCard = () => {
             <div className="btn-group btn-lg mx-5">
               {/* Back to Form */}
               <Button
+                icon={<FontAwesomeIcon icon={faAnglesLeft} />}
                 onClick={() => setShowForm(true)}
                 className="btn btn-primary text-uppercase"
-                label="Back to Form"
+                name="Form "
                 type="button"
-                icon={<FontAwesomeIcon icon={faAngleLeft} />}
               />
               {/* Print document */}
               <Button
@@ -370,7 +379,7 @@ const SeatCard = () => {
                         {card.title}
                       </strong>
                     </div>
-                    <div className="pt-3">
+                    <div className="lhs">
                       <p id="fontSize">{card.institution_name}</p>
                       <p>
                         {labels[language].exam_name} : {card.exam_name}

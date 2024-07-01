@@ -170,6 +170,13 @@ const DynamicTextCards = () => {
     content: () => componentRef.current,
   });
 
+  const handleReset = () => {
+    setFormData(initialFormState);
+    setErrors({});
+    setRangeStart("");
+    setRangeEnd("");
+  };
+
   return (
     <>
       {showForm ? (
@@ -420,6 +427,7 @@ const DynamicTextCards = () => {
                   className="btn btn-danger col-md-5 mx-1"
                   type="reset"
                   name={labels[language].reset}
+                  onClick={handleReset}
                 />
                 <Button
                   className=" btn btn-primary col-md-6"

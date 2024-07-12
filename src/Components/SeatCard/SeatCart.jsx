@@ -19,7 +19,8 @@ const SeatCard = () => {
     institution_name: "",
     exam_name: "",
     school_class: "",
-    section: "",
+    roll_regi: "",
+    exam_type: "",
     shifts: "",
     image: null,
   };
@@ -46,8 +47,8 @@ const SeatCard = () => {
       range_end: "Range End",
       upload_image: "Upload Logo",
       admit_card: "Various Exam Seat Card",
-
-      roll_label: "Roll / Regi No",
+      roll_regi: "Roll / Registation No",
+      exam_type: "Types",
     },
     bn: {
       submit: "জমা দিন",
@@ -60,7 +61,37 @@ const SeatCard = () => {
       range_end: "সিট কার্ডের শেষ সংখ্যা",
       upload_image: "আপলোড লগো",
       admit_card: "অন্যান্য পরীক্ষার সিট কার্ড",
-      roll_label: "রোল / রেজি. নং",
+      roll_regi: "রোল / রেজিস্ট্রেশন নং",
+      exam_type: "ধরন সমূহ",
+    },
+  };
+
+  // dynamic select section
+  const sectionArea = {
+    en: {
+      a: "-",
+      b: "ROLL NO",
+      c: "REGISTATION NO",
+    },
+    bn: {
+      a: "-",
+      b: "রোল নং",
+      c: "রেজিস্ট্রেশন নং",
+    },
+  };
+  // dynamic select section
+  const examType = {
+    en: {
+      a: "-",
+      b: "Exam Name",
+      c: "Post Name",
+      d: "Subject Name",
+    },
+    bn: {
+      a: "-",
+      b: "পরীক্ষার নাম",
+      c: "পদের নাম",
+      d: "বিষয়ের নাম",
     },
   };
   // form validation
@@ -70,6 +101,9 @@ const SeatCard = () => {
     if (!formData.institution_name)
       newErrors.institution_name = "Institution name is required";
     if (!formData.exam_name) newErrors.exam_name = "Exam name is required";
+    if (!formData.exam_type) newErrors.exam_type = "Type name is required";
+    if (!formData.roll_regi)
+      newErrors.roll_regi = "Roll / Registation name is required";
     if (!rangeStart) newErrors.range1 = "Range Start is required";
     if (!rangeEnd) newErrors.range2 = "Range End is required";
     setErrors(newErrors);
@@ -182,7 +216,6 @@ const SeatCard = () => {
               <h5 className="text-center text-uppercase fw-bolder">
                 {labels[language].admit_card}
               </h5>
-
               {/* input field element start */}
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
@@ -228,6 +261,35 @@ const SeatCard = () => {
                   </div>
                 )}
               </div>
+
+              <div className="col-lg-6 col-md-6 col-sm-12">
+                <Label
+                  htmlFor="exam_type"
+                  className="form-label"
+                  label={labels[language].exam_type}
+                />
+                <select
+                  id="exam_type"
+                  value={formData.exam_type}
+                  className={`form-select ${
+                    errors.exam_type ? "is-invalid" : ""
+                  }`}
+                  onChange={(e) =>
+                    handleInputChange({
+                      target: { name: "exam_type", value: e.target.value },
+                    })
+                  }
+                >
+                  {Object.keys(examType[language]).map((key) => (
+                    <option key={key} value={key}>
+                      {examType[language][key]}
+                    </option>
+                  ))}
+                </select>
+                {errors.exam_type && (
+                  <div className="invalid-feedback">{errors.exam_type}</div>
+                )}
+              </div>
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
                   htmlFor="exam_name"
@@ -252,20 +314,30 @@ const SeatCard = () => {
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12">
                 <Label
-                  htmlFor="imageFile"
+                  htmlFor="section"
                   className="form-label"
-                  label={labels[language].upload_image}
+                  label={labels[language].roll_regi}
                 />
-                <InputGroup
-                  id="imageFile"
-                  name="image"
-                  type="file"
-                  accept="image/*"
-                  className={`form-control ${errors.image ? "is-invalid" : ""}`}
-                  onChange={handleInputChange}
-                />
-                {errors.image && (
-                  <div className="invalid-feedback">{errors.image}</div>
+                <select
+                  id="section"
+                  value={formData.section}
+                  className={`form-select ${
+                    errors.roll_regi ? "is-invalid" : ""
+                  }`}
+                  onChange={(e) =>
+                    handleInputChange({
+                      target: { name: "roll_regi", value: e.target.value },
+                    })
+                  }
+                >
+                  {Object.keys(sectionArea[language]).map((key) => (
+                    <option key={key} value={key}>
+                      {sectionArea[language][key]}
+                    </option>
+                  ))}
+                </select>
+                {errors.roll_regi && (
+                  <div className="invalid-feedback">{errors.roll_regi}</div>
                 )}
               </div>
               <div className="col-lg-6 col-md-6 col-sm-12">
@@ -314,6 +386,24 @@ const SeatCard = () => {
                   <div className="invalid-feedback">{errors.range2}</div>
                 )}
               </div>
+              <div className="col-lg-6 col-md-6 col-sm-12">
+                <Label
+                  htmlFor="imageFile"
+                  className="form-label"
+                  label={labels[language].upload_image}
+                />
+                <InputGroup
+                  id="imageFile"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  className={`form-control ${errors.image ? "is-invalid" : ""}`}
+                  onChange={handleInputChange}
+                />
+                {errors.image && (
+                  <div className="invalid-feedback">{errors.image}</div>
+                )}
+              </div>
               <div className="col-lg-12 col-md-12 col-sm-12">
                 <Button
                   className="btn btn-danger col-md-5 mx-1"
@@ -322,7 +412,7 @@ const SeatCard = () => {
                   onClick={handleReset}
                 />
                 <Button
-                  className=" btn btn-primary col-md-6"
+                  className=" btn btn-primary col-md-5"
                   type="submit"
                   name={labels[language].submit}
                 />
@@ -382,10 +472,10 @@ const SeatCard = () => {
                     <div className="lhs">
                       <p id="fontSize">{card.institution_name}</p>
                       <p>
-                        {labels[language].exam_name} : {card.exam_name}
+                        {examType[language][card.exam_type]} : {card.exam_name}
                       </p>
                       <p id="roll">
-                        {labels[language].roll_label} : {card.id}
+                        {sectionArea[language][card.roll_regi]} : {card.id}
                       </p>
                     </div>
                   </div>

@@ -424,13 +424,13 @@ const DynamicTextCards = () => {
               </div>
               <div className="col-lg-12 col-md-12 col-sm-12">
                 <Button
-                  className="btn btn-danger col-md-5 mx-1"
+                  className="btn btn-danger col-md-5 m-1"
                   type="reset"
                   name={labels[language].reset}
                   onClick={handleReset}
                 />
                 <Button
-                  className=" btn btn-primary col-md-6"
+                  className=" btn btn-primary col-md-5"
                   type="submit"
                   name={labels[language].submit}
                 />

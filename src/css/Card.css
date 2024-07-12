@@ -10,9 +10,9 @@ body {
 }
 
 #card {
-  border: 1px solid #0000008b !important;
+  border: 2px solid #0000008b !important;
   padding: 4px 2px;
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
   width: 345px;
   height: 10.2rem;
 }
@@ -28,12 +28,13 @@ body {
   font-size: 11px;
   font-weight: bolder;
 }
-.lhs{
-  line-height: 1.6rem;
+
+.lhs {
+  line-height: 2.3rem;
 }
 
 p {
-  margin-bottom: 0.1rem !important;
+  margin: 0rem !important;
   font-size: 12px;
   padding: 0px 5px;
   text-transform: uppercase;
@@ -41,7 +42,7 @@ p {
 }
 
 #roll {
-  font-size: 0.90rem !important;
+  font-size: 1.3rem !important;
 }
 
 label {

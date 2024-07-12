@@ -33,7 +33,7 @@ const SingleCard = forwardRef((props, ref) => {
                 {labels[language].school_class} : {card.school_class}
               </p>
               <p>
-                {labels[language].section_label} :{" "}
+                {labels[language].section_label} :
                 {sectionArea[language][card.section]}
               </p>
               <p>

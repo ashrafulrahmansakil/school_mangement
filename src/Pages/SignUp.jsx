@@ -7,6 +7,8 @@ import CheckBox from "./../Components/InputGroup/Checkbox";
 import TextArea from "./../Components/InputGroup/TextArea";
 import Button from "../Components/Button/Button";
 import "../css/Input.css";
+import "../css/Style.css";
+
 const SignUp = () => {
   const initialFormData = {
     name: "",
@@ -356,9 +358,12 @@ const SignUp = () => {
               />
             </div>
             <div>
-              <Link to="/login" className="nav-link">
-                already a create a account <strong>login</strong> please
-              </Link>
+              <span className="text-capitalize d-flex gap-2">
+                already a create a account
+                <Link to="/login" className="nav-link">
+                  <strong className="loghover">login</strong> please
+                </Link>
+              </span>
             </div>
           </form>
         </div>

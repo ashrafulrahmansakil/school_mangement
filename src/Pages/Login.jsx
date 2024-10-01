@@ -5,7 +5,8 @@ import InputGroup from "../Components/InputGroup/InputGroup";
 import Label from "../Components/InputGroup/Label";
 import Layout from "./../layout/Layout";
 import CheckBox from "./../Components/InputGroup/Checkbox";
-import "../../src/css/Input.css";
+import "../css/Input.css";
+import "../css/Style.css";
 
 const Login = () => {
   const initialFormData = {
@@ -117,9 +118,12 @@ const Login = () => {
               <Button className="btn btn-success" type="submit" name="Submit" />
             </div>
             <div>
-              <Link to="/signup" className="nav-link">
-                Not a member? <strong>Sign up</strong>
-              </Link>
+              <span className="d-flex gap-1">
+                Not a member?
+                <Link to="/signup" className="nav-link">
+                  <strong className="loghover"> Sign up</strong>
+                </Link>
+              </span>
             </div>
           </form>
         </div>

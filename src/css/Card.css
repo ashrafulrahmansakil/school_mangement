@@ -52,3 +52,9 @@ label {
 @page {
   margin: 0.2in 0in !important;
 }
+
+@media print {
+  #print-area {
+    display: none !important;
+  }
+}

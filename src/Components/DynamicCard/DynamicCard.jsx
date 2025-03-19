@@ -440,8 +440,8 @@ const DynamicTextCards = () => {
         </Layout>
       ) : (
         <>
-          <div className="container m-1">
-            <div className="btn-group btn-lg mx-5">
+          <div className="container" id="print-area">
+            <div className="btn-group py-2">
               {/* Back to Form */}
               <Button
                 onClick={() => setShowForm(true)}

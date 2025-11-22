@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import Layout from "../../layout/Layout";
 import InputGroup from "../InputGroup/InputGroup";
